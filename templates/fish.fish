@@ -6,10 +6,10 @@ function _wt_exec
     set -l exit_code $status
 
     # Parse output line by line
-    for line in $output
+    for line in (string split \n -- $output)
         if string match -q '__WORKTRUNK_CD__*' -- $line
             # Extract path and change directory
-            cd (string sub -s 18 -- $line)
+            cd (string replace '__WORKTRUNK_CD__' '' -- $line)
         else
             # Regular output - print it
             echo $line
