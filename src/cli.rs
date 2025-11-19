@@ -77,7 +77,7 @@ pub struct Cli {
     #[arg(short = 'C', global = true, value_name = "path")]
     pub directory: Option<std::path::PathBuf>,
 
-    /// Show git commands and debug info
+    /// Show commands and debug info
     #[arg(long, short = 'v', global = true)]
     pub verbose: bool,
 
@@ -93,11 +93,11 @@ pub struct Cli {
 pub enum ConfigCommand {
     /// Initialize global configuration file with examples
     Init,
-    /// List all configuration files and their locations
+    /// List configuration files & locations
     List,
-    /// Refresh the cached default branch by querying the remote
+    /// Refresh default branch from remote
     RefreshCache,
-    /// Configure shell by writing to config files
+    /// Configure shell integration
     #[command(long_about = r#"Configure shell by writing to config files
 
 This command automatically adds the appropriate integration line to your shell's config file.
@@ -179,7 +179,7 @@ pub enum StatusAction {
 
 #[derive(Subcommand)]
 pub enum StandaloneCommand {
-    /// Run a project hook for testing
+    /// Run project hook
     RunHook {
         /// Hook type to run
         hook_type: HookType,
@@ -229,14 +229,14 @@ pub enum StandaloneCommand {
         allow_merge_commits: bool,
     },
 
-    /// Rebase current branch onto target branch
+    /// Rebase onto target
     Rebase {
         /// Target branch (defaults to default branch)
         #[arg(add = crate::completion::branch_value_completer())]
         target: Option<String>,
     },
 
-    /// Approve commands in the project config (shows unapproved by default)
+    /// Store approvals in config
     AskApprovals {
         /// Skip approval prompts
         #[arg(short, long)]
@@ -387,11 +387,14 @@ Rows are dimmed when no unique work (≡ matches main OR ∅ no commits).")]
         #[arg(long, verbatim_doc_comment)]
         full: bool,
 
-        /// Show rows progressively (auto-detects TTY)
+        /// Enable progressive rendering (show rows as data arrives)
+        ///
+        /// When enabled, worktree names appear immediately and details fill in
+        /// progressively. Default: auto (enabled for TTY, disabled for pipes).
         #[arg(long, verbatim_doc_comment, conflicts_with = "no_progressive")]
         progressive: bool,
 
-        /// Disable progressive rendering
+        /// Disable progressive rendering (collect all data before displaying)
         #[arg(long)]
         no_progressive: bool,
     },
@@ -481,19 +484,19 @@ Use '@' for current HEAD, '-' for previous, '^' for main:
         verify: bool,
     },
 
-    /// Finish current worktree, returning to primary if current
+    /// Remove worktree and branch
     #[command(after_help = r#"BEHAVIOR:
 
 Remove Current Worktree (no arguments):
   - Requires clean working tree (no uncommitted changes)
-  - If in worktree: removes it and switches to primary worktree
-  - If in primary worktree: switches to default branch (e.g., main)
-  - If already on default branch in primary: does nothing
+  - If in worktree: removes it and switches to main worktree
+  - If in main worktree: switches to default branch (e.g., main)
+  - If already on default branch in main: does nothing
 
 Remove Specific Worktree (by name):
   - Requires target worktree has clean working tree
   - Removes specified worktree(s) and associated branches
-  - If removing current worktree, switches to primary first
+  - If removing current worktree, switches to main first
   - Can remove multiple worktrees in one command
 
 Remove Multiple Worktrees:
@@ -531,8 +534,8 @@ Remove multiple worktrees:
 Remove in foreground (blocking):
   wt remove --no-background feature-branch
 
-Switch to default in primary:
-  wt remove  # (when already in primary worktree)"#)]
+Switch to default in main:
+  wt remove  # (when already in main worktree)"#)]
     Remove {
         /// Worktree or branch (@ for current)
         #[arg(add = crate::completion::worktree_branch_completer())]
@@ -589,7 +592,7 @@ The merge operation follows a strict order designed for fail-fast execution:
    worktree so they don't block the push, then restores them after success.
 
 7. Clean up worktree and branch
-   Removes current worktree, deletes the branch, and switches primary worktree to target
+   Removes current worktree, deletes the branch, and switches main worktree to target
    branch if needed. Skip removal with --no-remove.
 
 EXAMPLES

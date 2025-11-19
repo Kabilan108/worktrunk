@@ -457,7 +457,7 @@ dirty-with-status  ≡?🤖                  ./dirty-with-status           b8346
 By default, worktrees live as siblings to the main repo:
 
 ```
-myapp/               # primary worktree
+myapp/               # main worktree
 myapp.feature-x/     # secondary worktree
 myapp.bugfix-y/      # secondary worktree
 ```

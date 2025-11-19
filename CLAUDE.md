@@ -34,7 +34,7 @@ fn parse_config() { ... }
 
 ### CLI Flag Descriptions
 
-Keep flag and argument descriptions brief—aim for 3-5 words maximum. Use parenthetical defaults sparingly, only when the default isn't obvious from context.
+Keep the first line of flag and argument descriptions brief—aim for 3-6 words. Use parenthetical defaults sparingly, only when the default isn't obvious from context.
 
 **Good examples:**
 - `/// Skip approval prompts`
@@ -448,7 +448,7 @@ let lines: Vec<_> = reader.lines().collect();
 
 ### Unified Logging Location
 
-All background operation logs are centralized in `.git/wt-logs/` (primary worktree's git directory):
+All background operation logs are centralized in `.git/wt-logs/` (main worktree's git directory):
 
 - **Post-start commands**: `{branch}-post-start-{command}.log`
 - **Background removal**: `{branch}-remove.log`
@@ -459,7 +459,7 @@ Examples (where command names are from config):
 
 ### Log Behavior
 
-- **Centralized**: All logs go to primary worktree's `.git/wt-logs/`, shared across all worktrees
+- **Centralized**: All logs go to main worktree's `.git/wt-logs/`, shared across all worktrees
 - **Overwrites**: Same operation on same branch overwrites previous log (prevents accumulation)
 - **Not tracked**: Logs are in `.git/` directory, which git doesn't track
 - **Manual cleanup**: Stale logs (from deleted branches) persist but are bounded by branch count
@@ -508,7 +508,7 @@ Use `wt list --format=json` for structured data access. The output is an array o
 - `working_tree_diff`: `{added, deleted}` - uncommitted changes
 - `working_tree_diff_with_main`: `{added, deleted}` or null (null = not computed, `{0,0}` = matches main exactly)
 - `worktree_state`: "rebase" | "merge" | null - git operation in progress
-- `is_primary`: boolean - is main/primary worktree
+- `is_primary`: boolean - is main worktree
 - `status_symbols`: structured status object (see below)
 
 ### Branch-Specific Fields

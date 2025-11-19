@@ -96,8 +96,8 @@ pub fn truncate_at_word_boundary(text: &str, max_width: usize) -> String {
         return text.to_string();
     }
 
-    // Build up string until we hit the width limit (accounting for "..." = 3 width)
-    let target_width = max_width.saturating_sub(3);
+    // Build up string until we hit the width limit (accounting for "…" = 1 width)
+    let target_width = max_width.saturating_sub(1);
     let mut current_width = 0;
     let mut last_space_idx = None;
     let mut last_idx = 0;
@@ -116,7 +116,11 @@ pub fn truncate_at_word_boundary(text: &str, max_width: usize) -> String {
 
     // Use last space if found, otherwise truncate at last character that fits
     let truncate_at = last_space_idx.unwrap_or(last_idx);
-    format!("{}...", &text[..truncate_at].trim())
+
+    // Truncate decisively and add ellipsis marker
+    // Note: Can produce "...…" if original text has ellipsis at truncation point,
+    // but this is rare and acceptable - we're making a clear truncation decision.
+    format!("{}…", &text[..truncate_at])
 }
 
 /// Get terminal width, defaulting to 80 if detection fails
@@ -132,4 +136,88 @@ pub fn get_terminal_width() -> usize {
     terminal_size::terminal_size()
         .map(|(terminal_size::Width(w), _)| w as usize)
         .unwrap_or(80)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_truncate_normal_case() {
+        let text = "Fix bug with parsing and more text here";
+        let result = truncate_at_word_boundary(text, 25);
+        println!("Normal truncation:      '{}'", result);
+        assert!(result.ends_with('…'), "Should end with ellipsis");
+    }
+
+    #[test]
+    fn test_truncate_with_existing_ascii_ellipsis() {
+        let text = "Fix bug with parsing... more text here";
+        let result = truncate_at_word_boundary(text, 25);
+        // Shows what happens when truncation lands on existing "..."
+        println!("ASCII ellipsis:         '{}'", result);
+        assert!(result.ends_with('…'), "Should end with ellipsis");
+    }
+
+    #[test]
+    fn test_truncate_with_existing_unicode_ellipsis() {
+        let text = "Fix bug with parsing… more text here";
+        let result = truncate_at_word_boundary(text, 25);
+        // Shows what happens when truncation lands on existing "…"
+        println!("Unicode ellipsis:       '{}'", result);
+        assert!(result.ends_with('…'), "Should end with ellipsis");
+    }
+
+    #[test]
+    fn test_truncate_already_has_three_dots() {
+        let text = "Short text...";
+        let result = truncate_at_word_boundary(text, 20);
+        // When text fits, should return as-is
+        assert_eq!(result, "Short text...");
+    }
+
+    #[test]
+    fn test_truncate_word_boundary() {
+        let text = "This is a very long message that needs truncation";
+        let result = truncate_at_word_boundary(text, 30);
+        assert!(result.ends_with('…'), "Should end with ellipsis");
+        assert!(
+            !result.contains(" …"),
+            "Should not have space before ellipsis"
+        );
+        // Should truncate at word boundary
+        assert!(
+            !result.contains("truncate"),
+            "Should not break word 'truncation'"
+        );
+    }
+
+    #[test]
+    fn test_truncate_unicode_width() {
+        let text = "Fix bug with café ☕ and more text";
+        let result = truncate_at_word_boundary(text, 25);
+        use unicode_width::UnicodeWidthStr;
+        assert!(
+            result.width() <= 25,
+            "Width {} should be <= 25",
+            result.width()
+        );
+    }
+
+    #[test]
+    fn test_truncate_no_truncation_needed() {
+        let text = "Short message";
+        let result = truncate_at_word_boundary(text, 50);
+        assert_eq!(result, text);
+    }
+
+    #[test]
+    fn test_truncate_very_long_word() {
+        let text = "Supercalifragilisticexpialidocious extra text";
+        let result = truncate_at_word_boundary(text, 20);
+        use unicode_width::UnicodeWidthStr;
+        // Should truncate mid-word if no space found
+        assert!(result.width() <= 20, "Width should be <= 20");
+        assert!(result.ends_with('…'), "Should end with ellipsis");
+    }
 }

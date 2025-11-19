@@ -16,7 +16,7 @@ info:
     LANG: C
     LC_ALL: C
     SOURCE_DATE_EPOCH: "1761609600"
-    WORKTRUNK_CONFIG_PATH: /var/folders/wf/s6ycxvvs4ln8qsdbfx40hnc40000gn/T/.tmpjwiWHn/test-config.toml
+    WORKTRUNK_CONFIG_PATH: /var/folders/wf/s6ycxvvs4ln8qsdbfx40hnc40000gn/T/.tmpFxEupS/test-config.toml
 ---
 success: true
 exit_code: 0
@@ -160,8 +160,8 @@ _wt() {
     local context curcontext="$curcontext" state line
     _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 '-V[Print version]' \
@@ -179,8 +179,8 @@ _wt() {
 _arguments "${_arguments_options[@]}" : \
 '--command-name=[Command name]:COMMAND_NAME:_default' \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ':shell -- Shell to generate code for:(bash fish zsh)' \
@@ -189,8 +189,8 @@ _arguments "${_arguments_options[@]}" : \
 (config)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 ":: :_wt__config_commands" \
@@ -206,8 +206,8 @@ _arguments "${_arguments_options[@]}" : \
             (init)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -215,8 +215,8 @@ _arguments "${_arguments_options[@]}" : \
 (list)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -224,8 +224,8 @@ _arguments "${_arguments_options[@]}" : \
 (refresh-cache)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -237,8 +237,8 @@ _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
 '-f[Skip confirmation prompt]' \
 '--force[Skip confirmation prompt]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 && ret=0
@@ -246,8 +246,8 @@ _arguments "${_arguments_options[@]}" : \
 (status)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ":: :_wt__config__status_commands" \
@@ -264,8 +264,8 @@ _arguments "${_arguments_options[@]}" : \
 _arguments "${_arguments_options[@]}" : \
 '--branch=[Target branch (defaults to current)]:BRANCH:_default' \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ':value -- Status emoji to display:_default' \
@@ -274,8 +274,8 @@ _arguments "${_arguments_options[@]}" : \
 (unset)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 '::target -- Branch or "*" for all:_default' \
@@ -292,8 +292,8 @@ esac
 (beta)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ":: :_wt__beta_commands" \
@@ -311,8 +311,8 @@ _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ':hook_type -- Hook type to run:(post-create post-start pre-commit pre-merge post-merge)' \
@@ -324,8 +324,8 @@ _arguments "${_arguments_options[@]}" : \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
 '--no-verify[Skip pre-commit hooks]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -336,8 +336,8 @@ _arguments "${_arguments_options[@]}" : \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
 '--no-verify[Skip pre-commit hooks]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 '::target -- Target branch (defaults to default branch):_default' \
@@ -347,8 +347,8 @@ _arguments "${_arguments_options[@]}" : \
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
 '--allow-merge-commits[Allow merge commits]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 '::target -- Target branch (defaults to default branch):_default' \
@@ -357,8 +357,8 @@ _arguments "${_arguments_options[@]}" : \
 (rebase)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 '::target -- Target branch (defaults to default branch):_default' \
@@ -370,8 +370,8 @@ _arguments "${_arguments_options[@]}" : \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
 '--all[Show all commands]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -381,8 +381,8 @@ _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
 '-g[Clear global approvals]' \
 '--global[Clear global approvals]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 && ret=0
@@ -390,8 +390,8 @@ _arguments "${_arguments_options[@]}" : \
 (select)
 _arguments "${_arguments_options[@]}" : \
 '-C+[Change working directory]:path:_files' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 && ret=0
@@ -407,10 +407,10 @@ json\:"JSON output"))' \
 '-C+[Change working directory]:path:_files' \
 '--branches[Include branches without worktrees]' \
 '--full[Show CI, conflicts, and full diffs]' \
-'(--no-progressive)--progressive[Show rows progressively (auto-detects TTY)]' \
-'--no-progressive[Disable progressive rendering]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'(--no-progressive)--progressive[Enable progressive rendering (show rows as data arrives)]' \
+'--no-progressive[Disable progressive rendering (collect all data before displaying)]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 && ret=0
@@ -427,8 +427,8 @@ _arguments "${_arguments_options[@]}" : \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
 '--no-verify[Skip project hooks]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ':branch -- Branch, path, '\''@'\'' (HEAD), '\''-'\'' (previous), or '\''^'\'' (main):_default' \
@@ -441,8 +441,8 @@ _arguments "${_arguments_options[@]}" : \
 '-D[Delete unmerged branches]' \
 '--force-delete[Delete unmerged branches]' \
 '--no-background[Run removal in foreground]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help]' \
 '--help[Print help]' \
 '*::worktrees -- Worktree or branch (@ for current):_default' \
@@ -458,8 +458,8 @@ _arguments "${_arguments_options[@]}" : \
 '-f[Skip approval prompts]' \
 '--force[Skip approval prompts]' \
 '--tracked-only[Stage tracked files only]' \
-'-v[Show git commands and debug info]' \
-'--verbose[Show git commands and debug info]' \
+'-v[Show commands and debug info]' \
+'--verbose[Show commands and debug info]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
 '::target -- Target branch (defaults to default branch):_default' \
@@ -478,7 +478,7 @@ _wt_commands() {
 'beta:Development and testing utilities' \
 'list:List worktrees and optionally branches' \
 'switch:Switch to a worktree' \
-'remove:Finish current worktree, returning to primary if current' \
+'remove:Remove worktree and branch' \
 'merge:Merge worktree into target branch' \
     )
     _describe -t commands 'wt commands' commands "$@"
@@ -486,12 +486,12 @@ _wt_commands() {
 (( $+functions[_wt__beta_commands] )) ||
 _wt__beta_commands() {
     local commands; commands=(
-'run-hook:Run a project hook for testing' \
+'run-hook:Run project hook' \
 'commit:Commit changes with LLM-generated message' \
 'squash:Squash commits with LLM-generated message' \
 'push:Push changes to target branch' \
-'rebase:Rebase current branch onto target branch' \
-'ask-approvals:Approve commands in the project config (shows unapproved by default)' \
+'rebase:Rebase onto target' \
+'ask-approvals:Store approvals in config' \
 'clear-approvals:Clear approved commands from config' \
 'select:Interactive worktree selector' \
     )
@@ -541,9 +541,9 @@ _wt__beta__squash_commands() {
 _wt__config_commands() {
     local commands; commands=(
 'init:Initialize global configuration file with examples' \
-'list:List all configuration files and their locations' \
-'refresh-cache:Refresh the cached default branch by querying the remote' \
-'shell:Configure shell by writing to config files' \
+'list:List configuration files & locations' \
+'refresh-cache:Refresh default branch from remote' \
+'shell:Configure shell integration' \
 'status:Manage branch status markers' \
     )
     _describe -t commands 'wt config commands' commands "$@"
