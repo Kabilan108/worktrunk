@@ -90,7 +90,7 @@ choices optimize for parallel AI agent workflow:
 
 ...and that means...
 
-- Total focus on zero-ing the cost of additional agents worktree
+- Total focus on zero cost of an additional agent
 - Fairly small surface area: three core commands
 - Maximum automation: LLM commit messages, lifecycle hooks, Claude Code hooks
   - A robust "run auto-merge when 'local-CI' passes" command
@@ -260,20 +260,26 @@ For manual setup instructions, see `wt config shell --help`.
 
 ## Tips
 
-**Create an alias for an agent** — Shell aliases streamline common workflows. For example, to create a worktree and immediately start Claude:
+**Create an alias for an agent** — Start a new agent-in-worktree in a couple of seconds. For example, to create a worktree and immediately start Claude:
 
 ```bash
 alias wsl='wt switch --create --execute=claude'
 ```
 
-Now `wsl new-feature` creates a branch, sets up the worktree, runs initialization hooks, and launches Claude in that directory.
+Then:
 
-**Automatic branch status in Claude Code** — The Claude Code integration shows
-which branches have active sessions. When Claude starts working, the branch
-shows `🤖` in `wt list`. When waiting for input, it shows `💬`. Setup
-instructions: [Custom Worktree Status](#custom-worktree-status).
+```bash
+wsl new-feature
+```
 
-**Auto-generated commit messages** — Configure an LLM to generate commit
+...creates a branch, sets up the worktree, runs initialization hooks, and launches Claude in that directory.
+
+**View Claude Code status from `wt list`** — The Claude Code integration shows
+which branches have active sessions in `wt list`. When Claude starts working,
+the branch shows `🤖`; hen waiting for input, it shows `💬`. Setup instructions:
+[Custom Worktree Status](#custom-worktree-status).
+
+**Auto-generate commit messages** — Configure an LLM to generate commit
 messages during merge. See [LLM Commit Messages](#llm-commit-messages).
 
 **Automate startup with hooks** — Use `post-create-command` for environment
@@ -282,15 +288,16 @@ setup, `post-start-command` for non-blocking tasks. For example, worktrunk uses
 eliminating cold compiles (see [worktrunk's config](.config/wt.toml)). See
 [Project Hooks](#project-hooks) for details.
 
-**Use `post-merge-command` as a "local CI" running** — Running `wt merge` on a
-worktree, knowing it'll get merged iff passes tests — means `main` is protected from an agent
-forgetting to run all tests.
+**Use `post-merge-command` as a "local CI"** — Running `wt merge` on a worktree
+and knowing it'll get merged iff passes tests — means `main` is protected from
+an agent forgetting to run all tests (without having to babysit it).
 
-**Delegate to task runners** — Reference existing Justfile/Makefile commands instead of duplicating logic:
+**Delegate to task runners** — Reference existing Taskfile/Justfile/Makefile commands
+instead of duplicating logic:
 
 ```toml
 [post-create-command]
-"setup" = "just install"
+"setup" = "task install"
 
 [pre-merge-command]
 "validate" = "just test lint"
