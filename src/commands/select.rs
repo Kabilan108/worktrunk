@@ -799,6 +799,13 @@ where
 }
 
 pub fn handle_select() -> anyhow::Result<()> {
+    use std::io::IsTerminal;
+
+    // Select requires an interactive terminal for the TUI
+    if !std::io::stdin().is_terminal() {
+        anyhow::bail!("wt select requires an interactive terminal");
+    }
+
     let repo = Repository::current();
 
     // Initialize preview mode state file (auto-cleanup on drop)

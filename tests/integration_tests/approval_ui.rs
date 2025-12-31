@@ -606,3 +606,16 @@ third = "echo 'third' >> output.txt"
         "All commands should have run in order"
     );
 }
+
+/// Test that `wt select` fails in non-TTY environment with clear error message
+///
+/// The select command requires an interactive terminal for its TUI.
+/// When stdin is not a TTY, it should fail with a clear error.
+#[rstest]
+fn test_select_fails_in_non_tty(repo: TestRepo) {
+    let settings = setup_snapshot_settings(&repo);
+    settings.bind(|| {
+        let mut cmd = make_snapshot_cmd(&repo, "select", &[], None);
+        assert_cmd_snapshot!("select_fails_in_non_tty", cmd);
+    });
+}
