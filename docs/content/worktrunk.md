@@ -113,6 +113,52 @@ $ cargo install worktrunk
 $ wt config shell install
 ```
 
+**NixOS (flakes):**
+
+```nix
+{
+  inputs.worktrunk.url = "github:max-sixty/worktrunk";
+
+  outputs = { self, nixpkgs, worktrunk, ... }: {
+    nixosConfigurations.my-host = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ({ pkgs, ... }: {
+          environment.systemPackages = [
+            worktrunk.packages.${pkgs.system}.default
+          ];
+        })
+      ];
+    };
+  };
+}
+```
+
+**Home Manager (flakes):**
+
+```nix
+{
+  inputs.worktrunk.url = "github:max-sixty/worktrunk";
+
+  outputs = { self, home-manager, worktrunk, ... }: {
+    homeConfigurations.my-user = home-manager.lib.homeManagerConfiguration {
+      pkgs = ...;
+      modules = [
+        worktrunk.homeManagerModules.worktrunk
+        {
+          programs.worktrunk = {
+            enable = true;
+            settings = {
+              "worktree-path" = "../{{ main_worktree }}.{{ branch | sanitize }}";
+            };
+          };
+        }
+      ];
+    };
+  };
+}
+```
+
 ## Next steps
 
 - Learn the core commands: [wt switch](@/switch.md), [wt list](@/list.md), [wt merge](@/merge.md), [wt remove](@/remove.md)
