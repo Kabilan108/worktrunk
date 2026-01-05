@@ -123,12 +123,39 @@
               default = defaultSettings;
               description = "Worktrunk configuration written to the XDG config file.";
             };
+            enableBashIntegration = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Whether to enable Bash shell integration.";
+            };
+            enableZshIntegration = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Whether to enable Zsh shell integration.";
+            };
+            enableFishIntegration = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Whether to enable Fish shell integration.";
+            };
           };
 
           config = lib.mkIf cfg.enable {
             home.packages = [ cfg.package ];
             xdg.configFile."worktrunk/config.toml".source =
               tomlFormat.generate "worktrunk-config.toml" cfg.settings;
+
+            programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration ''
+              if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
+            '';
+
+            programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
+              if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+            '';
+
+            programs.fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration ''
+              if type -q wt; command wt config shell init fish | source; end
+            '';
           };
         };
 
